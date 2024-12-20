@@ -1,0 +1,11 @@
+@import "./../lib/bootstrap/scss/bootstrap.scss";
+
+.auth-box {
+    width: 100%;
+}
+
+@include media-breakpoint-up(md) {
+    .auth-box {
+        width: 350px;
+    }
+}
