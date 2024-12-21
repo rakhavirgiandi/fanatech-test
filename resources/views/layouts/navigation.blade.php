@@ -1,4 +1,34 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link" href="#">Inventory</a>
+          <a class="nav-link" href="#">Sales</a>
+          <a class="nav-link" href="#">Purchase</a>
+          <form method="POST" action="{{ route('logout') }}">
+              @csrf
+          <a class="nav-link" href="#" onclick="event.preventDefault(); this.closest('form').submit();">Logout</a>
+            </form>
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Others
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+{{-- <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -97,4 +127,4 @@
             </div>
         </div>
     </div>
-</nav>
+</nav> --}}

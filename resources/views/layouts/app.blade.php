@@ -12,7 +12,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/lib/bootstrap/scss/bootstrap-icons.scss', 'resources/lib/bootstrap/js/bootstrap.bundle.min.js'])
         <script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
     </head>
     <body class="font-sans antialiased">
@@ -33,5 +33,6 @@
                 {{ $slot }}
             </main>
         </div>
+        @stack('scripts')
     </body>
 </html>
