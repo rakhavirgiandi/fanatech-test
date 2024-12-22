@@ -2,8 +2,6 @@
 
 Welcome to the Laravel 11 project! This README will guide you through the setup process to get the project up and running on your local machine.
 
----
-
 ## Prerequisites
 
 Ensure you have the following installed on your system:
@@ -12,8 +10,6 @@ Ensure you have the following installed on your system:
 2. **Composer**: Dependency manager for PHP
 3. **Node.js and npm**: For managing frontend dependencies (Optional if your project uses them)
 4. **MySQL**: Or any other database you plan to use
-
----
 
 ## Installation Steps
 
@@ -109,8 +105,6 @@ The application will be accessible at:
 http://localhost:8000
 ```
 
----
-
 ## Testing
 
 To run tests (if available):
@@ -119,7 +113,11 @@ To run tests (if available):
 php artisan test
 ```
 
----
+## Notes
+
+- Ensure that your `.env` file is properly configured before running migrations or seeders.
+- If you encounter issues, check the Laravel and Inertia documentation for troubleshooting guidance.
+- You can find the credentials in `database/seeders/UserSeeder.php`.
 
 ## Troubleshooting
 
@@ -129,13 +127,9 @@ If you encounter issues:
 2. Check your `.env` configuration for any missing or incorrect details.
 3. Review the Laravel documentation for additional guidance: [Laravel Documentation](https://laravel.com/docs/11.x).
 
----
-
 ## Contribution
 
 Feel free to fork the repository, create a new branch, and submit a pull request if you'd like to contribute!
-
----
 
 ## License
 
