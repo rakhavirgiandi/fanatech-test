@@ -29,6 +29,9 @@ class DataDummySeeder extends Seeder
         DB::table('users')->truncate();
         DB::table('inventories')->truncate();
         DB::table('sales')->truncate();
+        DB::table('sales_details')->truncate();
+        DB::table('purchases')->truncate();
+        DB::table('purchase_details')->truncate();
         DB::table('roles')->truncate();
         DB::table('model_has_roles')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
@@ -113,7 +116,7 @@ class DataDummySeeder extends Seeder
 
                 $sales->save();
 
-                $inventrory = Inventory::inRandomOrder()->first();
+                $inventrory = Inventory::all()->random();
 
                 $sales_details = new SalesDetail;
                 
@@ -138,7 +141,7 @@ class DataDummySeeder extends Seeder
 
                 $purchase->save();
 
-                $inventrory = Inventory::inRandomOrder()->first();
+                $inventrory = Inventory::all()->random();
 
                 $purchase_detail = new PurchaseDetail;
                 
