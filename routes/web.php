@@ -18,7 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth')->prefix('inventories')->name('inventory.')->group(function () {
+Route::middleware('auth')->prefix('inventories')->middleware(['role:super-admin'])->name('inventory.')->group(function () {
     Route::get('/', [InventoryController::class, 'index'])->name('index');
     Route::get('/create', [InventoryController::class, 'create'])->name('create');
     Route::post('/store', [InventoryController::class, 'store'])->name('store');
