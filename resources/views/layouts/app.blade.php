@@ -14,6 +14,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/lib/bootstrap/scss/bootstrap-icons.scss'])
         <script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -34,5 +35,17 @@
             </main>
         </div>
         @stack('scripts')
+        <script>
+            $(document).ready(function () {
+                $('input[isNumber]').on('input', function () {
+                    const attr = $(this).attr('isNumber');
+                    if (attr != false) {
+                        let value = $(this).val();
+                        let filteredValue = value.replace(/[^0-9]/g, '');
+                        $(this).val(filteredValue);
+                    }
+                });
+            })
+        </script>
     </body>
 </html>
