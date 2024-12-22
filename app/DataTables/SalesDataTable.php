@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\Exports\SalesExport;
 use App\Models\Sale;
 use App\Models\Sales;
 use Carbon\Carbon;
@@ -16,7 +17,8 @@ use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class SalesDataTable extends DataTable
-{
+{   
+    protected string $exportClass = SalesExport::class;
     /**
      * Build the DataTable class.
      *
@@ -55,7 +57,7 @@ class SalesDataTable extends DataTable
                     ->setTableId('sales-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    //->dom('Bfrtip')
+                    ->dom('Bfrtip')
                     ->orderBy(1)
                     ->buttons([
                         Button::make('excel'),
@@ -74,8 +76,10 @@ class SalesDataTable extends DataTable
     {
         return [
             Column::make('id')->addClass("text-start"),
-            Column::make('details.qty')->title("Quantity")->addClass("text-start"),
+            Column::make('number')->title("Number")->addClass("text-start"),
             Column::make('details.inventory.name')->title("Inventory")->addClass("text-start"),
+            Column::make('details.qty')->title("Quantity")->addClass("text-start"),
+            Column::make('details.price')->title("Price")->addClass("text-start"),
             Column::computed('created_at')->addClass("text-start")->sortable(true),
             Column::computed('action')
                   ->exportable(false)
