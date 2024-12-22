@@ -22,7 +22,18 @@ class InventoriesDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'inventories.action')
+            ->addColumn('action', function ($row) {
+                return '<div class="btn-group">
+                  <button type="button" class="btn btn-light btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Action
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="'.route('inventory.edit', ['id' => $row->id]).'">Edit</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                  </ul>
+                </div>';
+            })
+            ->rawColumns(['action'])
             ->setRowId('id');
     }
 

@@ -68,14 +68,39 @@ class InventoryController extends Controller
     public function edit(string $id)
     {
         //
+        $inventory = Inventory::findOrFail($id);
+        return view('inventory.edit', ['inventory' => $inventory]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, int $id)
     {
         //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|digits_between:1,10',
+            'stock' => 'required|numeric|digits_between:1,10',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(["errors" => $validator->errors()], 422);
+        }
+
+        $inventory = Inventory::find($id);
+
+        if (!$inventory) {
+            return response()->json(["errors" => 'Inventory not found'], 404);
+        }
+
+        $inventory = $inventory->update([
+            "name" => $request->name,
+            "price" => $request->price,
+            "stock" => $request->stock,
+        ]);
+
+        return response()->json(['message' => 'Update inventory successfully!']);
     }
 
     /**

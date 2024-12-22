@@ -22,6 +22,8 @@ Route::middleware('auth')->prefix('inventories')->name('inventory.')->group(func
     Route::get('/', [InventoryController::class, 'index'])->name('index');
     Route::get('/create', [InventoryController::class, 'create'])->name('create');
     Route::post('/store', [InventoryController::class, 'store'])->name('store');
+    Route::get('/edit/{id}', [InventoryController::class, 'edit'])->name('edit');
+    Route::patch('/update/{id}', [InventoryController::class, 'update'])->name('update');
 });
 
 require __DIR__.'/auth.php';
