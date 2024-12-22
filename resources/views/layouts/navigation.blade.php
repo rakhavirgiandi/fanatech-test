@@ -10,17 +10,17 @@
           <a class="nav-link" href="#">Inventory</a>
           <a class="nav-link" href="#">Sales</a>
           <a class="nav-link" href="#">Purchase</a>
-          <form method="POST" action="{{ route('logout') }}">
-              @csrf
-          <a class="nav-link" href="#" onclick="event.preventDefault(); this.closest('form').submit();">Logout</a>
-            </form>
           <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Others
             </a>
             <ul class="dropdown-menu">
-              <li>
-              </li>
+                <li>
+                  <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <a class="dropdown-item" href="#" onclick="event.preventDefault(); this.closest('form').submit();">Logout</a>
+                  </form>
+                </li>
             </ul>
           </div>
         </div>
