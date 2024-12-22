@@ -34,6 +34,24 @@ class SalesDataTable extends DataTable
             ->addColumn('price', function($row){
                 return intval($row->details->price);
             })
+            ->addColumn('action', function ($row) {
+                return '<div class="btn-group">
+                  <button type="button" class="btn btn-light btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Action
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="'.route('sales.edit', ['id' => $row->id]).'">Edit</a></li>
+                    <li>
+                        <form method="POST" action="'.route('sales.delete', ['id' => $row->id]).'" attr-datatable-submit="delete">
+                        <input type="hidden" name="_token" value="'.csrf_token().'" />
+                        <input type="hidden" name="_method" value="delete">
+                            <button class="dropdown-item" type="submit">Delete</a>
+                        </form>
+                    </li>
+                  </ul>
+                </div>';
+            })
+            ->rawColumns(['action'])
             ->setRowId('id');
     }
 

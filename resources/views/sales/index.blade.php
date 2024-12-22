@@ -11,7 +11,7 @@
     @once
     @push('scripts')
         {{ $dataTable->scripts() }}
-        {{-- <script>
+        <script>
             $(document).on('submit', '[attr-datatable-submit="delete"]', function(e){
                   e.preventDefault();
                   $.ajax({
@@ -25,7 +25,7 @@
                         $('[attr-error-message]').html("");
                     },
                     success: function(response) {
-                        $('#inventories-table').DataTable().ajax.reload();
+                        $('#sales-table').DataTable().ajax.reload();
                         Swal.fire({
                             icon: "success",
                             title: "Success!",
@@ -55,7 +55,7 @@
                     }
                 });
             });
-        </script> --}}
+        </script>
     @endpush
     @endonce
 </x-app-layout>

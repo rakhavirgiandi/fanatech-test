@@ -82,24 +82,72 @@ class SalesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
         //
+        $sales = Sales::with('details', 'details.inventory')->firstOrFail();
+        $inventories = Inventory::all();
+
+        return view('sales.edit', ['sales' => $sales, 'inventories' => $inventories]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, int $id)
     {
         //
+        $validator = Validator::make($request->all(), [
+            'inventory_id' => 'required|exists:inventories,id',
+            'quantity' => 'required|numeric|digits_between:1,10',
+            'date' => 'required|date',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(["errors" => $validator->errors()], 422);
+        }
+
+        $inventory = Inventory::find($request->inventory_id);
+
+        if (!$inventory) {
+            return response()->json(["errors" => "Inventory not found"], 404);
+        }
+
+        $sales = Sales::find($id);
+        $sales_detail = SalesDetail::find($sales->details->id);
+        if (!$sales) {
+            return response()->json(["errors" => "Sales not found"], 404);
+        }
+
+        if (!$sales_detail) {
+            return response()->json(["errors" => "Sales Detail not found"], 404);
+        }
+        
+        $sales->date = $request->date;
+        $sales->save();
+
+        $sales_detail->qty = $request->quantity;
+
+        $sales_detail->inventory()->associate($inventory);
+        $sales_detail->save();
+
+        return response()->json(['message' => 'Create Sales successfully!']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
         //
+        $sales = Sales::find($id);
+
+        if (!$sales) {
+            return response()->json(["errors" => 'Sales not found'], 404);
+        }
+
+        $sales->delete();
+
+        return response()->json(['message' => 'Delete sales successfully!']);
     }
 }
