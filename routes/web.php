@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SalesController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,15 @@ Route::middleware('auth')->prefix('sales')->name('sales.')->group(function () {
     Route::get('/edit/{id}', [SalesController::class, 'edit'])->name('edit');
     Route::patch('/update/{id}', [SalesController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [SalesController::class, 'destroy'])->name('delete');
+});
+
+Route::middleware('auth')->prefix('purchase')->name('purchase.')->group(function () {
+    Route::get('/', [PurchaseController::class, 'index'])->name('index');
+    Route::get('/create', [PurchaseController::class, 'create'])->name('create');
+    Route::post('/store', [PurchaseController::class, 'store'])->name('store');
+    Route::get('/edit/{id}', [PurchaseController::class, 'edit'])->name('edit');
+    Route::patch('/update/{id}', [PurchaseController::class, 'update'])->name('update');
+    Route::delete('/delete/{id}', [PurchaseController::class, 'destroy'])->name('delete');
 });
 
 require __DIR__.'/auth.php';
