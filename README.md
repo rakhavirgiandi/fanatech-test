@@ -121,6 +121,12 @@ If you encounter issues:
 2. Check your `.env` configuration for any missing or incorrect details.
 3. Review the Laravel documentation for additional guidance: [Laravel Documentation](https://laravel.com/docs/11.x).
 
+## Notes
+
+- Ensure that your `.env` file is properly configured before running migrations or seeders.
+- If you encounter issues, check the Laravel and Inertia documentation for troubleshooting guidance.
+- You can find the credentials in `database/seeders/UserSeeder.php`.
+
 ## Contribution
 
 Feel free to fork the repository, create a new branch, and submit a pull request if you'd like to contribute!
@@ -128,9 +134,3 @@ Feel free to fork the repository, create a new branch, and submit a pull request
 ## License
 
 This project is open-source and available under the [MIT License](https://opensource.org/licenses/MIT).
-
-## Notes
-
-- Ensure that your `.env` file is properly configured before running migrations or seeders.
-- If you encounter issues, check the Laravel and Inertia documentation for troubleshooting guidance.
-- You can find the credentials in `database/seeders/UserSeeder.php`.
