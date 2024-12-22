@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\SalesDataTable;
+use App\Models\Inventory;
+use App\Models\Sales;
+use App\Models\SalesDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class SalesController extends Controller
 {
@@ -22,6 +27,9 @@ class SalesController extends Controller
     public function create()
     {
         //
+        $inventories = Inventory::all();
+
+        return view('sales.create', ['inventories' => $inventories]);
     }
 
     /**
@@ -30,6 +38,37 @@ class SalesController extends Controller
     public function store(Request $request)
     {
         //
+        $validator = Validator::make($request->all(), [
+            'inventory_id' => 'required|exists:inventories,id',
+            'quantity' => 'required|numeric|digits_between:1,10',
+            'date' => 'required|date',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(["errors" => $validator->errors()], 422);
+        }
+
+        $inventory = Inventory::find($request->inventory_id);
+
+        if (!$inventory) {
+            return response()->json(["errors" => "Inventory not found"], 404);
+        }
+
+        $sales = new Sales();
+        $sales->date = $request->date;
+        $sales->number = $sales->newUniqueId();
+        // $sales->user_id = Auth::user()->id;
+        $sales->user()->associate(Auth::user());
+        $sales->save();
+
+        $sales_detail = new SalesDetail;
+        $sales_detail->qty = $request->quantity;
+
+        $sales_detail->inventory()->associate($inventory);
+        $sales_detail->sales()->associate($sales);
+        $sales_detail->save();
+
+        return response()->json(['message' => 'Create Sales successfully!']);
     }
 
     /**

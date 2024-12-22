@@ -31,6 +31,9 @@ class SalesDataTable extends DataTable
             ->addColumn('created_at', function($row){
                 return Carbon::parse($row->created_at);
             })
+            ->addColumn('price', function($row){
+                return intval($row->details->price);
+            })
             ->setRowId('id');
     }
 
@@ -42,7 +45,7 @@ class SalesDataTable extends DataTable
         $model = Sales::query()->with(['details.inventory']);
 
         if (!Auth::user()->hasRole(['super-admin'])) {
-            $model->where('user_id', '=', 2);
+            $model->where('user_id', '=', Auth::user()->id);
         }
 
         return $model;
@@ -66,7 +69,8 @@ class SalesDataTable extends DataTable
                         Button::make('print'),
                         Button::make('reset'),
                         Button::make('reload')
-                    ]);
+                    ])
+                    ->addTableClass('my-3');
     }
 
     /**
@@ -79,8 +83,8 @@ class SalesDataTable extends DataTable
             Column::make('number')->title("Number")->addClass("text-start"),
             Column::make('details.inventory.name')->title("Inventory")->addClass("text-start"),
             Column::make('details.qty')->title("Quantity")->addClass("text-start"),
-            Column::make('details.price')->title("Price")->addClass("text-start"),
-            Column::computed('created_at')->addClass("text-start")->sortable(true),
+            Column::computed('price')->title("Price")->addClass("text-start")->sortable(true),
+            Column::computed('created_at')->addClass("text-start")->orderable(true),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)

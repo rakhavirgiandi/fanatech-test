@@ -30,8 +30,8 @@ Route::middleware('auth')->prefix('inventories')->middleware(['role:super-admin'
 
 Route::middleware('auth')->prefix('sales')->name('sales.')->group(function () {
     Route::get('/', [SalesController::class, 'index'])->name('index');
-    // Route::get('/create', [InventoryController::class, 'create'])->name('create');
-    // Route::post('/store', [InventoryController::class, 'store'])->name('store');
+    Route::get('/create', [SalesController::class, 'create'])->name('create');
+    Route::post('/store', [SalesController::class, 'store'])->name('store');
     // Route::get('/edit/{id}', [InventoryController::class, 'edit'])->name('edit');
     // Route::patch('/update/{id}', [InventoryController::class, 'update'])->name('update');
     // Route::delete('/delete/{id}', [InventoryController::class, 'destroy'])->name('delete');
