@@ -65,7 +65,7 @@ class SalesDataTable extends DataTable
     {   
         $model = Sales::query()->with(['details', 'details.inventory']);
 
-        if (!Auth::user()->hasRole(['super-admin'])) {
+        if (Auth::user()->hasRole(['sales'])) {
             $model->where('user_id', '=', Auth::user()->id);
         }
 
@@ -98,7 +98,18 @@ class SalesDataTable extends DataTable
      * Get the dataTable columns definition.
      */
     public function getColumns(): array
-    {
+    {   
+
+        $actionColumn = Column::computed('action')
+                        ->exportable(false)
+                        ->printable(false)
+                        ->width(60)
+                        ->addClass('text-center');
+
+        if (Auth::user()->hasRole(['manager'])) {
+            $actionColumn->hidden();
+        }
+
         return [
             Column::make('id')->addClass("text-start"),
             Column::make('number')->title("Number")->addClass("text-start"),
@@ -107,11 +118,7 @@ class SalesDataTable extends DataTable
             Column::make('details.qty')->title("Quantity")->addClass("text-start"),
             Column::computed('price')->title("Price")->addClass("text-start")->sortable(true),
             Column::computed('created_at')->addClass("text-start")->orderable(true),
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+            $actionColumn
         ];
     }
 

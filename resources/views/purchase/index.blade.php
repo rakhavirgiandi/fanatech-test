@@ -2,7 +2,9 @@
     
     <div class="container my-3">
         <div class="d-flex justify-content-end mb-3">
-            <a href="{{ route('purchase.create') }}" class="btn btn-primary">Create</a>
+            @if (Auth::user()->hasRole(['super-admin', 'purchase']))
+                <a href="{{ route('purchase.create') }}" class="btn btn-primary">Create</a>
+            @endif
         </div>
         <div class="table-responsive">
             {{ $dataTable->table() }}
