@@ -29,7 +29,13 @@ class InventoriesDataTable extends DataTable
                   </button>
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="'.route('inventory.edit', ['id' => $row->id]).'">Edit</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li>
+                        <form method="POST" action="'.route('inventory.delete', ['id' => $row->id]).'" attr-datatable-submit="delete">
+                        <input type="hidden" name="_token" value="'.csrf_token().'" />
+                        <input type="hidden" name="_method" value="delete">
+                            <button class="dropdown-item" type="submit">Delete</a>
+                        </form>
+                    </li>
                   </ul>
                 </div>';
             })

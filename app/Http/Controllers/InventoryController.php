@@ -106,8 +106,17 @@ class InventoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
         //
+        $inventory = Inventory::find($id);
+
+        if (!$inventory) {
+            return response()->json(["errors" => 'Inventory not found'], 404);
+        }
+
+        $inventory->delete();
+
+        return response()->json(['message' => 'Delete inventory successfully!']);
     }
 }
