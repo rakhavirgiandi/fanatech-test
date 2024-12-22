@@ -125,7 +125,7 @@ If you encounter issues:
 
 - Ensure that your `.env` file is properly configured before running migrations or seeders.
 - If you encounter issues, check the Laravel and Inertia documentation for troubleshooting guidance.
-- You can find the credentials in `database/seeders/UserSeeder.php`.
+- You can find the credentials in `database/seeders/DataDummySeeder.php`.
 
 ## Contribution
 
