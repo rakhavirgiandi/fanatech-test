@@ -16466,11 +16466,10 @@ textarea.form-control-lg {
 
 @media (min-width: 768px) {
   .auth-box {
-    width: 350px; } }
-.dt-info {
-  text-align: end;
-  margin-bottom: 1rem; }
+    width: 350px; }
 
+  .dt-info {
+    float: left; } }
 div.dt-container div.dt-paging ul.pagination {
   justify-content: end; }
 

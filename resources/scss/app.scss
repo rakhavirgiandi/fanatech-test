@@ -12,12 +12,11 @@
     .auth-box {
         width: 350px;
     }
+    .dt-info {
+        float: left;
+    }
 }
 
-.dt-info {
-    text-align: end;
-    margin-bottom: 1rem;
-}
 
 div.dt-container div.dt-paging ul.pagination {
     justify-content: end;
