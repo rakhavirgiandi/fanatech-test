@@ -113,12 +113,6 @@ To run tests (if available):
 php artisan test
 ```
 
-## Notes
-
-- Ensure that your `.env` file is properly configured before running migrations or seeders.
-- If you encounter issues, check the Laravel and Inertia documentation for troubleshooting guidance.
-- You can find the credentials in `database/seeders/UserSeeder.php`.
-
 ## Troubleshooting
 
 If you encounter issues:
@@ -134,3 +128,9 @@ Feel free to fork the repository, create a new branch, and submit a pull request
 ## License
 
 This project is open-source and available under the [MIT License](https://opensource.org/licenses/MIT).
+
+## Notes
+
+- Ensure that your `.env` file is properly configured before running migrations or seeders.
+- If you encounter issues, check the Laravel and Inertia documentation for troubleshooting guidance.
+- You can find the credentials in `database/seeders/UserSeeder.php`.
