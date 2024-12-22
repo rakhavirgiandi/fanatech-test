@@ -32,7 +32,10 @@ class SalesDataTable extends DataTable
                 return Carbon::parse($row->created_at);
             })
             ->addColumn('price', function($row){
-                return intval($row->details->price);
+                return intval($row->details?->price);
+            })
+            ->addColumn('inventory_name', function($row){
+                return $row->details?->inventory->name;
             })
             ->addColumn('action', function ($row) {
                 return '<div class="btn-group">
@@ -60,7 +63,7 @@ class SalesDataTable extends DataTable
      */
     public function query(Sales $model): QueryBuilder
     {   
-        $model = Sales::query()->with(['details.inventory']);
+        $model = Sales::query()->with(['details', 'details.inventory']);
 
         if (!Auth::user()->hasRole(['super-admin'])) {
             $model->where('user_id', '=', Auth::user()->id);
@@ -99,7 +102,8 @@ class SalesDataTable extends DataTable
         return [
             Column::make('id')->addClass("text-start"),
             Column::make('number')->title("Number")->addClass("text-start"),
-            Column::make('details.inventory.name')->title("Inventory")->addClass("text-start"),
+            Column::make('date')->title("Date")->addClass("text-start"),
+            Column::computed('inventory_name')->title("Inventory")->addClass("text-start")->orderable(true),
             Column::make('details.qty')->title("Quantity")->addClass("text-start"),
             Column::computed('price')->title("Price")->addClass("text-start")->sortable(true),
             Column::computed('created_at')->addClass("text-start")->orderable(true),
