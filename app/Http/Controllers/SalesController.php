@@ -85,7 +85,7 @@ class SalesController extends Controller
     public function edit($id)
     {
         //
-        $sales = Sales::with('details', 'details.inventory')->firstOrFail();
+        $sales = Sales::with('details.inventory')->where('id', '=', $id)->firstOrFail();
         $inventories = Inventory::all();
 
         return view('sales.edit', ['sales' => $sales, 'inventories' => $inventories]);
