@@ -33,6 +33,7 @@
                 $(document).ready(function() {
                     $('select[id="inventory"]').select2();
                     $('form').submit(function(e){
+                        const button = $(this).find('button[type="submit"]');
                           e.preventDefault();
                           $.ajax({
                             url: $(this).attr('action'),
@@ -42,6 +43,7 @@
                             cache: false,
                             processData: false,
                             beforeSend: () => {
+                                button.attr('disabled', true);
                                 $('[attr-error-message]').html("");
                             },
                             success: function(response) {
@@ -56,6 +58,7 @@
                                 });
                             },
                             error: function(e) {
+                                button.attr('disabled', false);
                                 const response = e.responseJSON;
                                 if (response?.errors && e.status === 422) {
                                     const errors = response?.errors;

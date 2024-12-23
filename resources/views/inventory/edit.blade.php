@@ -27,6 +27,7 @@
                 const baseURL = `{{ url('') }}`;
                 $('form').submit(function(e){
                   	e.preventDefault();
+                      const button = $(this).find('button[type="submit"]');
                       $.ajax({
                         url: $(this).attr('action'),
                         type: "POST",
@@ -35,6 +36,7 @@
                         cache: false,
                         processData: false,
                         beforeSend: () => {
+                            button.attr('disabled', true);
                             $('[attr-error-message]').html("");
                         },
                         success: function(response) {
@@ -51,6 +53,7 @@
                             });
                         },
                         error: function(e) {
+                            button.attr('disabled', false);
                             const response = e.responseJSON;
                             if (response?.errors && e.status === 422) {
                                 const errors = response?.errors;
